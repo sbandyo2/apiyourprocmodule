@@ -88,6 +88,7 @@ public class TransformInput {
 	 */
 	public RequisitionDTO transformInput(String requestData)  {
 		Document xmlDoc = null;
+		
 		RequisitionDTO requisitionDTO = null;
 		
 		try {
