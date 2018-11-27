@@ -15,7 +15,7 @@ public class ServiceException extends Exception{
 	}
 	/**
 	 * Constructor
-	 * @param message
+	 * @param  message
 	 */
 	public ServiceException(String message)
 	{

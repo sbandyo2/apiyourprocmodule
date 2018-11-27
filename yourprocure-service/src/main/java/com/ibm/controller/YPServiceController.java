@@ -47,7 +47,7 @@ public class YPServiceController {
 		
 		transformInput = new TransformInput();
 		
-		//perform transaction transform and update in Ariba service 
+		//perform transaction transform and update in Ariba  service 
 		aribaApplication = eurekaClient.getApplication("sapariba-service");
 		instanceInfo = aribaApplication.getInstances().get(0);
 		url = "http://" + instanceInfo.getIPAddr() + ":"+ instanceInfo.getPort() + "/" + "/ariba/";

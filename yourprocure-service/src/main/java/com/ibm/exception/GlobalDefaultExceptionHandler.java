@@ -24,7 +24,7 @@ public class GlobalDefaultExceptionHandler {
 	}
 
 	/**
-	 * @param apiError
+	 * @param  apiError
 	 * @return
 	 */
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {

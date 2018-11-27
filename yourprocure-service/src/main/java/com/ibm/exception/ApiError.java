@@ -9,6 +9,7 @@ public class ApiError {
 	private Exception ex = null;
 
 	/**
+	 *
 	 * 
 	 */
 	public ApiError() {

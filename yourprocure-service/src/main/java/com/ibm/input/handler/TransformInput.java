@@ -92,7 +92,7 @@ public class TransformInput {
 		
 		try {
 		
-			// prepare the key value pair by parsing the xml
+			// prepare the key value pair by parsing the  xml
 			xmlDoc = convertStringToDocument(requestData);
 			
 			Element e = xmlDoc.getDocumentElement();
