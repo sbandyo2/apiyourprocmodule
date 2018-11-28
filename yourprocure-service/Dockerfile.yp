@@ -1,0 +1,8 @@
+FROM anapsix/alpine-java:latest
+MAINTAINER ibm.com
+RUN apk --no-cache add netcat-openbsd
+COPY yp.jar .
+COPY yp-entrypoint.sh .
+RUN chmod +x yp-entrypoint.sh
+ENTRYPOINT ["sh","yp-entrypoint.sh"]
+EXPOSE 8084
