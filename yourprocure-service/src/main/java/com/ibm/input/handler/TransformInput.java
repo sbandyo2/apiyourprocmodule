@@ -179,9 +179,11 @@ public class TransformInput {
 					elementname = childNode.getNodeName();
 					
 					if("ItemDetails".equalsIgnoreCase(elementname)){
+						//initializing for the first time
+						if(lineItems== null)
+							lineItems = new ArrayList<>();
+						
 						if(dto!=null){
-							if(lineItems== null)
-								lineItems = new ArrayList<>();
 							lineItems.add(dto);
 						}
 							
