@@ -1,0 +1,8 @@
+FROM anapsix/alpine-java:latest
+MAINTAINER ibm.com
+RUN apk --no-cache add netcat-openbsd
+COPY ypw2.jar .
+COPY ypw2-entrypoint.sh .
+RUN chmod +x ypw2-entrypoint.sh
+ENTRYPOINT ["sh","ypw2-entrypoint.sh"]
+EXPOSE 7084
