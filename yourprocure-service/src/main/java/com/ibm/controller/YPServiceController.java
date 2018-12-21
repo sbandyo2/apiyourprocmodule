@@ -52,30 +52,41 @@ public class YPServiceController {
 		RequisitionDTO  requisitionDTO = null;
 		
 		transformInput = new TransformInput();
-		requisitionDTO = transformInput.transformInput(xml);
+		try{
+			requisitionDTO = transformInput.transformInput(xml);
+		}catch(Exception e){
+			
+		}
 		
-		//perform transaction transform and update in Ariba service 
-		bakendApplication = eurekaClient.getApplication("backend-service");
-		instanceInfo = bakendApplication.getInstances().get(0);
-		url= "http://" + instanceInfo.getIPAddr() + ":"+ instanceInfo.getPort() + "/" + "/dbattachinsert/";
-		
-		//saving the received data
-		voWrapperDTO = new VOWrapperDTO();
-		voWrapperDTO.setRecievedData(new StringBuffer(xml));
-		voWrapperDTO.setFileName(YPServiceConstants.APP_TYPE+"_"+requisitionDTO.getApplicationTransactionNumber()+"_"+RECIEVED);
-		voWrapperDTO.setFileType(XML);
-		restTemplate.postForObject(url, voWrapperDTO, String.class);
-		
-		//perform transaction transform and update in Ariba service 
-		aribaApplication = eurekaClient.getApplication("sapariba-service");
-		instanceInfo = aribaApplication.getInstances().get(0);
-		url = "http://" + instanceInfo.getIPAddr() + ":"+ instanceInfo.getPort() + "/" + "/ariba/";
-		
-		response = restTemplate.postForObject(url,requisitionDTO , String.class);
+		// checking the validity of the input
+		if(requisitionDTO!= null) {
+			//perform transaction transform and update in Ariba service 
+			bakendApplication = eurekaClient.getApplication("backend-service");
+			instanceInfo = bakendApplication.getInstances().get(0);
+			url= "http://" + instanceInfo.getIPAddr() + ":"+ instanceInfo.getPort() + "/" + "/dbattachinsert/";
+			
+			//saving the received data
+			voWrapperDTO = new VOWrapperDTO();
+			voWrapperDTO.setRecievedData(new StringBuffer(xml));
+			voWrapperDTO.setFileName(YPServiceConstants.APP_TYPE+"_"+requisitionDTO.getApplicationTransactionNumber()+"_"+RECIEVED);
+			voWrapperDTO.setFileType(XML);
+			restTemplate.postForObject(url, voWrapperDTO, String.class);
+			
+			//perform transaction transform and update in Ariba service 
+			aribaApplication = eurekaClient.getApplication("sapariba-service");
+			instanceInfo = aribaApplication.getInstances().get(0);
+			url = "http://" + instanceInfo.getIPAddr() + ":"+ instanceInfo.getPort() + "/" + "/ariba/";
+			
+			response = restTemplate.postForObject(url,requisitionDTO , String.class);
 
-		logger.info("Finishing your procure transaction ");
+			logger.info("Finishing your procure transaction ");
+			
+			return response.toString();
+		}else{
+			logger.info("Invalid Input" +xml);
+		}
 		
-		return response.toString();
+		return "<returnData><error>Invalid Input data from upstream</error></returnData> ";
 	}
 
 	@Bean
